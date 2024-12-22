@@ -5,4 +5,9 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class Expense(@PrimaryKey(autoGenerate = true) val id: Int = 0,val spendTime:Long,val category:String,val spending:Int)
+data class Expense(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val spendTime: Long,
+    val category: String,
+    val spending: Int
+)

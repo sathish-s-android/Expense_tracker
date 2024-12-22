@@ -37,3 +37,15 @@ fun <T>Result<T>.getDateElseThrow():T{
         }
     }
 }
+
+fun <T>Result<T>.getDateElse(value:T,error:(String)->Unit):T{
+    return when(this){
+        is Result.Sucess->{
+            data
+        }
+        is Result.Failure ->{
+            error(this.error)
+            value
+        }
+    }
+}
