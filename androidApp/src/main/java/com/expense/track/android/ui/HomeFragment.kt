@@ -47,7 +47,8 @@ class HomeFragment: Fragment() {
         val composeView = ComposeView(requireContext())
 
         composeView.setContent {
-            SetUpScreen(viewModel.expense.collectAsState())
+            SetUpAddOrUpdateUi(viewModel)
+//            SetUpScreen(viewModel.expense.collectAsState())
         }
 
         return composeView
