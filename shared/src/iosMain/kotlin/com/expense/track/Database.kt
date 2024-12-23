@@ -1,28 +1,17 @@
 package com.expense.track
 
-import androidx.room.RoomDatabase
 import androidx.room.Room
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.expense.track.data.DataBase.AppDatabase
-import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSFileManager
-import platform.Foundation.NSUserDomainMask
+import platform.Foundation.NSHomeDirectory
 
-fun getDatabaseBuilder(): RoomDatabase.Builder<AppDatabase> {
-    val dbFilePath = documentDirectory() + "/my_room.db"
+fun getPeopleDatabase(): AppDatabase {
+    val dbFile = NSHomeDirectory() + "/people.db"
     return Room.databaseBuilder<AppDatabase>(
-        name = dbFilePath,
-    )
-}
+        name = dbFile,
 
-@OptIn(ExperimentalForeignApi::class)
-private fun documentDirectory(): String {
-    val documentDirectory = NSFileManager.defaultManager.URLForDirectory(
-        directory = NSDocumentDirectory,
-        inDomain = NSUserDomainMask,
-        appropriateForURL = null,
-        create = false,
-        error = null,
+//        factory = { AppDatabase::class.instantiateImpl()}
     )
-    return requireNotNull(documentDirectory?.path)
+        .setDriver(BundledSQLiteDriver())
+        .build()
 }

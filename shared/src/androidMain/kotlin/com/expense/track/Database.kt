@@ -2,19 +2,21 @@ package com.expense.track
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.expense.track.data.DataBase.AppDatabase
-import com.expense.track.data.DataBase.setUpDataBase
+import com.expense.track.data.DataBase.MyDataBase
 
-internal fun getDatabaseBuilder(ctx: Context): RoomDatabase.Builder<AppDatabase> {
-    val appContext = ctx.applicationContext
-    val dbFile = appContext.getDatabasePath("my_room.db")
-    return Room.databaseBuilder<AppDatabase>(
-        context = appContext,
-        name = dbFile.absolutePath
-    )
-}
 
 fun initializeDatabase(ctx: Context){
-    setUpDataBase(getDatabaseBuilder(ctx))
+    MyDataBase.setDataBase(getAppDatabase(ctx))
+}
+
+fun getAppDatabase(context: Context): AppDatabase {
+    val dbFile = context.getDatabasePath("my_room.db")
+    return Room.databaseBuilder<AppDatabase>(
+        context = context.applicationContext,
+        name = dbFile.absolutePath
+    )
+        .setDriver(BundledSQLiteDriver())
+        .build()
 }

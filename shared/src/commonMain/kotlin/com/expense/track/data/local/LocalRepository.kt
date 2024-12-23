@@ -1,5 +1,6 @@
 package com.expense.track.data.local
 
+import com.expense.track.bussinessObjects.Category
 import com.expense.track.bussinessObjects.Expense
 import com.expense.track.data.DataBase.AppDatabase
 import com.expense.track.data.DataBase.ExpenseDao
@@ -42,6 +43,22 @@ class LocalRepository(val dataBase:AppDatabase):LocalDataSource {
     override suspend fun updateExpense(expense: Expense) {
         try {
             dao.update(expense)
+        }catch (E:Exception){
+
+        }
+    }
+
+    override suspend fun getAllCategory(): Result<List<Category>> {
+        return try {
+            Result.Sucess(dao.getAllCategory())
+        }catch (e:Exception){
+            Result.Failure(e.message?:"")
+        }
+    }
+
+    override suspend fun insertCategory(expense: Category) {
+        try {
+            dao.insertCategory(expense)
         }catch (E:Exception){
 
         }

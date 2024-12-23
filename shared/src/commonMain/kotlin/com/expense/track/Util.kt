@@ -5,7 +5,9 @@ import com.expense.track.data.DataSource
 import com.expense.track.data.Repository
 import com.expense.track.data.local.LocalDataSource
 import com.expense.track.data.local.LocalRepository
+import com.expense.track.usecase.GetAllCategory
 import com.expense.track.usecase.GetExpense
+import com.expense.track.usecase.InsertCategory
 import com.expense.track.usecase.InsertExpense
 import com.expense.track.usecase.UpdateExpense
 
@@ -20,6 +22,14 @@ fun getInsertExpense(): InsertExpense {
 
 fun getUpdateExpense(): UpdateExpense {
     return UpdateExpense(getDataSource())
+}
+
+fun getGetAllCategory(): GetAllCategory {
+    return GetAllCategory(getDataSource())
+}
+
+fun getInsertCategory(): InsertCategory {
+    return InsertCategory(getDataSource())
 }
 
 private fun getDataSource():DataSource{
